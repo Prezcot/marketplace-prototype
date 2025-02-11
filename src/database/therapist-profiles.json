@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Dr. Anna Reynolds",
+    "specialties": ["Cognitive Behavioral Therapy", "Anxiety", "Depression"],
+    "bio": "Dr. Anna Reynolds is a board-certified psychologist with over 10 years of experience helping individuals overcome anxiety and depression using evidence-based therapies.",
+    "availability": {
+      "Monday": "9:00 - 17:00",
+      "Tuesday": "9:00 - 17:00",
+      "Wednesday": "9:00 - 17:00",
+      "Thursday": "9:00 - 17:00",
+      "Friday": "9:00 - 17:00"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Dr. Michael Stevens",
+    "specialties": ["Family Therapy", "Couples Counseling"],
+    "bio": "Dr. Michael Stevens dedicates his practice to helping families and couples navigate complex relationship challenges with compassion and evidence-based strategies.",
+    "availability": {
+      "Monday": "10:00 - 18:00",
+      "Wednesday": "10:00 - 18:00",
+      "Friday": "10:00 - 18:00"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Dr. Emily Carter",
+    "specialties": ["Mindfulness-Based Therapy", "Stress Management"],
+    "bio": "Focusing on integrating mindfulness with traditional therapy techniques, Dr. Emily Carter provides support for clients looking to manage stress and cultivate mental well-being.",
+    "availability": {
+      "Tuesday": "9:00 - 17:00",
+      "Thursday": "9:00 - 17:00"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Dr. Oliver Hughes",
+    "specialties": ["Trauma-Informed Therapy", "PTSD"],
+    "bio": "With extensive experience addressing trauma and PTSD, Dr. Oliver Hughes employs a compassionate, client-centered approach to guide individuals through their healing process.",
+    "availability": {
+      "Monday": "11:00 - 19:00",
+      "Thursday": "11:00 - 19:00"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Dr. Sophia Liu",
+    "specialties": ["Child and Adolescent Therapy", "Educational Counseling"],
+    "bio": "Specializing in the needs of younger clients, Dr. Sophia Liu offers tailored support for children and teenagers navigating emotional and educational challenges.",
+    "availability": {
+      "Wednesday": "8:00 - 16:00",
+      "Friday": "8:00 - 16:00"
+    }
+  }
+]
