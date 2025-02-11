@@ -20,7 +20,7 @@ function generateTimeSlots(rangeStr) {
   return slots;
 }
 
-function ClientSearchBooking() {
+function ClientSearch() {
   const navigate = useNavigate();
   const [specialty, setSpecialty] = useState("");
   const [availability, setAvailability] = useState("");
@@ -249,96 +249,9 @@ function ClientSearchBooking() {
             )}
           </div>
         </div>
-
-        {/* Booking Form */}
-        {selectedTherapist && !bookingConfirmed && (
-          <div className="mt-12 transform transition-all duration-500">
-            <div className="bg-white shadow-xl rounded-lg p-6 border border-gray-100">
-              <h3 className="text-2xl font-semibold mb-6 text-gray-900">
-                Book Appointment with {selectedTherapist.name}
-              </h3>
-              <form onSubmit={handleBooking} className="space-y-6">
-                <div>
-                  <label className="block text-gray-700 font-medium text-sm mb-2">
-                    Select Day:
-                  </label>
-                  <select
-                    value={selectedDay}
-                    onChange={(e) => {
-                      setSelectedDay(e.target.value);
-                      setTimeSlot("");
-                    }}
-                    className="block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200"
-                  >
-                    {Object.keys(selectedTherapist.availability).map((day) => (
-                      <option key={day} value={day}>
-                        {day}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-gray-700 font-medium text-sm mb-2">
-                    Select Time:
-                  </label>
-                  <select
-                    value={timeSlot}
-                    onChange={(e) => setTimeSlot(e.target.value)}
-                    className="block w-full border border-gray-300 rounded-md px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors duration-200"
-                  >
-                    <option value="">--Select a Time Slot--</option>
-                    {availableTimeSlots.map((slot) => (
-                      <option key={slot} value={slot}>
-                        {slot}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-green-600 text-white rounded-md py-3 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200"
-                >
-                  Confirm Booking
-                </button>
-              </form>
-            </div>
-          </div>
-        )}
-
-        {/* Confirmation */}
-        {bookingConfirmed && (
-          <div className="mt-12 transform transition-all duration-500">
-            <div className="bg-white shadow-xl rounded-lg p-8 text-center border border-gray-100">
-              <div className="mb-4">
-                <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-6 h-6 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-900">
-                Booking Confirmed!
-              </h3>
-              <p className="text-gray-600">
-                Your appointment with {selectedTherapist.name} is confirmed for{" "}
-                {selectedDay} at {timeSlot}.
-              </p>
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );
 }
 
-export default ClientSearchBooking;
+export default ClientSearch;

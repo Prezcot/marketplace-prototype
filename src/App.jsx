@@ -1,5 +1,5 @@
-import Login from "./components/Login";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./components/Login";
 import ClientSearch from "./components/ClientSearch";
 import TherapistBooking from "./components/TherapistBooking";
 
