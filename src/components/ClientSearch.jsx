@@ -2,33 +2,11 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import therapistData from "../database/therapist-profiles.json";
 
-// Helper functions to generate time slots from a range string
-function formatTime(hour, minute) {
-  const period = hour >= 12 ? "PM" : "AM";
-  const adjustedHour = hour % 12 === 0 ? 12 : hour % 12;
-  return `${adjustedHour}:${minute.toString().padStart(2, "0")} ${period}`;
-}
-
-function generateTimeSlots(rangeStr) {
-  const [startStr, endStr] = rangeStr.split(" - ");
-  const [startHour] = startStr.split(":").map(Number);
-  const [endHour] = endStr.split(":").map(Number);
-  let slots = [];
-  for (let hour = startHour; hour < endHour; hour++) {
-    slots.push(formatTime(hour, 0));
-  }
-  return slots;
-}
-
 function ClientSearch() {
   const navigate = useNavigate();
   const [specialty, setSpecialty] = useState("");
   const [availability, setAvailability] = useState("");
   const [results, setResults] = useState([]);
-  const [selectedTherapist, setSelectedTherapist] = useState(null);
-  const [selectedDay, setSelectedDay] = useState("");
-  const [timeSlot, setTimeSlot] = useState("");
-  const [bookingConfirmed, setBookingConfirmed] = useState(false);
 
   // Get unique specialties from all therapists
   const uniqueSpecialties = Array.from(
@@ -54,34 +32,11 @@ function ClientSearch() {
       return matchSpecialty && matchAvailability;
     });
     setResults(filtered);
-    setSelectedTherapist(null);
-    setSelectedDay("");
-    setTimeSlot("");
-    setBookingConfirmed(false);
   };
 
   const handleSelectTherapist = (therapist) => {
-    setSelectedTherapist(therapist);
-    // Set default day to the first available day
-    const firstDay = Object.keys(therapist.availability)[0];
-    setSelectedDay(firstDay);
-    setTimeSlot("");
-    setBookingConfirmed(false);
     navigate("/book-therapist", { state: { therapist } });
   };
-
-  const handleBooking = (e) => {
-    e.preventDefault();
-    if (timeSlot && selectedDay) {
-      setBookingConfirmed(true);
-    }
-  };
-
-  // Generate available time slots based on selected therapist and day
-  const availableTimeSlots =
-    selectedTherapist && selectedDay
-      ? generateTimeSlots(selectedTherapist.availability[selectedDay])
-      : [];
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">

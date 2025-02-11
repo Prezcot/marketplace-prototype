@@ -48,13 +48,31 @@ TheraConnect is a prototype marketplace platform that connects licensed therapis
 git clone https://github.com/Prezcot/marketplace-prototype.git
 ```
 
-2. Install dependencies Start the development server:
+2. Change Directory:
+
+```bash
+cd marketplace-prototype
+```
+
+3. Install dependencies Start the development server:
 
 ```bash
 npm run dev
 ```
 
-3. Open http://localhost:5173 in your browser
+4. Open http://localhost:5173 in your browser
+
+5. Login with your email
+
+6. Search for a therapist
+
+7. Book a therapist
+
+8. Pay for the therapist - There is basic character length validation. Enter
+   random numbers for all fields and continue
+
+9. Confirm the booking - You will be redirected to a page with the booking
+   details which includes the payment summary and the meeting link.
 
 ## 💡 Implementation Approach
 
@@ -67,6 +85,10 @@ npm run dev
    - Implementing search algorithms
    - Designing UI/UX elements
    - Creating the readme file
+
+2. **Cursor AI**: Used for:
+
+   - Development environment of the project
 
 ### Development Process
 
