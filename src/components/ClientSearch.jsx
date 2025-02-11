@@ -178,8 +178,8 @@ function ClientSearchBooking() {
                 </h3>
                 <div className="space-y-4">
                   <p className="text-gray-600">
-                    We couldn't find any therapists matching your current search
-                    criteria:
+                    We couldn&apos;t find any therapists matching your current
+                    search criteria:
                   </p>
                   <div className="bg-gray-50 p-4 rounded-lg inline-block mx-auto">
                     {specialty && (

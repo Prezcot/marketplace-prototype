@@ -2,13 +2,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (name.trim()) {
-      localStorage.setItem("userName", name.trim());
+    if (email.trim()) {
+      localStorage.setItem("userEmail", email.trim());
       navigate("/search-booking");
     }
   };
@@ -30,17 +30,16 @@ const Login = () => {
             <form className="mt-8" onSubmit={handleSubmit}>
               <div className="mb-4">
                 <label
-                  htmlFor="name"
+                  htmlFor="email"
                   className="block text-sm font-medium text-gray-700"
                 >
-                  Your Name
+                  Your Email
                 </label>
                 <input
-                  id="name"
-                  name="name"
+                  id="email"
                   type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm px-3 py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Enter your name"
                   required

@@ -2,7 +2,8 @@ import { useState } from "react";
 
 const MOCK_CONSULTATION_FEE = 150;
 
-function PaymentFlow({ onPaymentComplete, onCancel }) {
+const PaymentFlow = (props) => {
+  const { onPaymentComplete, onCancel } = props;
   const [paymentMethod, setPaymentMethod] = useState("credit");
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -169,6 +170,6 @@ function PaymentFlow({ onPaymentComplete, onCancel }) {
       </form>
     </div>
   );
-}
+};
 
 export default PaymentFlow;

@@ -25,6 +25,17 @@ const generateMeetingId = () => {
   return Math.random().toString(36).substring(2, 12);
 };
 
+// Add function to generate Jitsi meeting URL
+const generateJitsiMeetingUrl = (meetingId) => {
+  return `https://meet.jit.si/${meetingId}`;
+};
+
+// Add function to simulate email sending
+const sendEmailNotification = (email, meetingDetails) => {
+  console.log(`Email sent to ${email} with meeting details:`, meetingDetails);
+  // In a real application, this would make an API call to your email service
+};
+
 function TherapistBooking() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -72,12 +83,25 @@ function TherapistBooking() {
 
   const handlePaymentComplete = (details) => {
     const meetingId = generateMeetingId();
-    const sessionLink = `/video-session/${meetingId}`;
+    const jitsiUrl = generateJitsiMeetingUrl(meetingId);
+    const userEmail = localStorage.getItem("userEmail");
+
+    // Prepare meeting details
+    const meetingDetails = {
+      therapistName: therapist.name,
+      date: selectedDay,
+      time: timeSlot,
+      meetingId,
+      meetingUrl: jitsiUrl,
+    };
+
+    // Send email notification
+    sendEmailNotification(userEmail, meetingDetails);
 
     setTransactionDetails({
       ...details,
       meetingId,
-      sessionLink,
+      meetingUrl: jitsiUrl,
     });
     setBookingConfirmed(true);
     setShowPayment(false);
@@ -179,77 +203,93 @@ function TherapistBooking() {
           )}
 
           {bookingConfirmed && (
-            <div className="p-8 text-center">
-              <div className="mb-4">
-                <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                  <svg
-                    className="w-6 h-6 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                </div>
-              </div>
-              <h3 className="text-2xl font-semibold mb-4 text-gray-900">
-                Booking Confirmed!
-              </h3>
-              <div className="text-gray-600 space-y-2">
-                <p>
-                  Your appointment with {therapist.name} is confirmed for{" "}
-                  {selectedDay} at {timeSlot}.
-                </p>
-                <div className="mt-4 bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-medium text-gray-900 mb-2">
-                    Payment Details
-                  </h4>
-                  <p>Transaction ID: {transactionDetails.transactionId}</p>
-                  <p>Amount Paid: ${transactionDetails.amount}.00</p>
-                  <p>
-                    Card: {transactionDetails.paymentMethod.toUpperCase()}{" "}
-                    ending in {transactionDetails.last4}
-                  </p>
-                </div>
-                <div className="mt-4 bg-gray-50 p-4 rounded-lg">
-                  <h4 className="font-medium text-gray-900 mb-2">
-                    Video Session Details
-                  </h4>
-                  <p>Meeting ID: {transactionDetails.meetingId}</p>
-                  <p className="mt-2">
-                    <button
-                      onClick={() => navigate(transactionDetails.sessionLink)}
-                      className="inline-flex items-center text-indigo-600 hover:text-indigo-700"
+            <div className="mt-12 transform transition-all duration-500">
+              <div className="bg-white shadow-xl rounded-lg p-8 text-center border border-gray-100">
+                <div className="mb-4">
+                  <div className="mx-auto w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-green-600"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
                     >
-                      <span>Join Session</span>
-                      <svg
-                        className="ml-2 w-4 h-4"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth="2"
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        />
-                      </svg>
-                    </button>
-                  </p>
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
                 </div>
+                <h3 className="text-2xl font-semibold mb-4 text-gray-900">
+                  Booking Confirmed!
+                </h3>
+                <div className="text-gray-600 space-y-2">
+                  <p>
+                    Your appointment with {therapist.name} is confirmed for{" "}
+                    {selectedDay} at {timeSlot}.
+                  </p>
+                  <div className="mt-4 bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-medium text-gray-900 mb-2">
+                      Payment Details
+                    </h4>
+                    <p>Transaction ID: {transactionDetails.transactionId}</p>
+                    <p>Amount Paid: ${transactionDetails.amount}.00</p>
+                    <p>
+                      Card: {transactionDetails.paymentMethod.toUpperCase()}{" "}
+                      ending in {transactionDetails.last4}
+                    </p>
+                  </div>
+                  <div className="mt-4 bg-gray-50 p-4 rounded-lg">
+                    <h4 className="font-medium text-gray-900 mb-2">
+                      Video Session Details
+                    </h4>
+                    <div className="space-y-2">
+                      <p>Meeting ID: {transactionDetails.meetingId}</p>
+                      <div className="bg-blue-50 p-4 rounded-lg mt-2">
+                        <p className="text-blue-800">
+                          We&apos;ve sent the meeting link to your email. You
+                          can join the session by:
+                        </p>
+                        <ul className="text-sm text-blue-700 mt-2 space-y-1">
+                          <li>1. Clicking the link in your email</li>
+                          <li>
+                            2. Using the button below at the scheduled time
+                          </li>
+                        </ul>
+                      </div>
+                      <a
+                        href={transactionDetails.meetingUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center justify-center px-6 py-2 mt-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
+                      >
+                        Join Meeting
+                        <svg
+                          className="ml-2 w-4 h-4"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                          />
+                        </svg>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  onClick={() => navigate("/search-booking")}
+                  className="mt-6 px-6 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-colors duration-200"
+                >
+                  Book Another Appointment
+                </button>
               </div>
-              <button
-                onClick={() => navigate("/search-booking")}
-                className="mt-6 px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-colors duration-200"
-              >
-                Book Another Appointment
-              </button>
             </div>
           )}
         </div>
